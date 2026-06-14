@@ -1,0 +1,36 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files - NEVER commit secrets
+.env
+.env.*
+!.env.example
+
+# runtime data (uploaded files / file-store)
+/var/*.log
+/var/uploads/*
+/var/data/*
+!/var/uploads/.gitkeep
+!/var/data/.gitkeep
+
+# typescript
+*.tsbuildinfo

@@ -1,0 +1,320 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Taxzilla Design System (Tailwind v4)
+   Ultra-Premium Light Aesthetic: Clean white, soft shadows, vibrant brand accents.
+   ========================================================================== */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-inter), ui-sans-serif, sans-serif;
+
+  /* Brand — Official Taxzilla Purple (#753C8D anchored at 600) */
+  --color-brand-50: #f5f1f7;
+  --color-brand-100: #e9e0ed;
+  --color-brand-200: #d3c1da;
+  --color-brand-300: #ba9dc6;
+  --color-brand-400: #a17ab1;
+  --color-brand-500: #8a599e;
+  --color-brand-600: #753c8d;
+  --color-brand-700: #613275;
+  --color-brand-800: #502960;
+  --color-brand-900: #3d1f49;
+  --color-brand-950: #291531;
+
+  /* Accent — Official Taxzilla Green (#85C041 anchored at 500) */
+  --color-accent-50: #f0f7e8;
+  --color-accent-100: #dfefce;
+  --color-accent-200: #c9e3ab;
+  --color-accent-300: #b1d785;
+  --color-accent-400: #9bcb63;
+  --color-accent-500: #85c041;
+  --color-accent-600: #71a337;
+  --color-accent-700: #5a822c;
+  --color-accent-800: #476723;
+  --color-accent-900: #37501b;
+  --color-accent-950: #223110;
+
+  /* Ink — Clean slate neutrals */
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-700: #334155;
+  --color-ink-800: #1e293b;
+  --color-ink-900: #0f172a;
+  --color-ink-950: #020617;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: var(--color-ink-800);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Base selection color */
+::selection {
+  background-color: var(--color-brand-200);
+  color: var(--color-brand-900);
+}
+
+/* Subtle entrance animation utility */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+.animate-float {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@keyframes float-slower {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(24px) translateX(-15px); }
+}
+.animate-float-slow {
+  animation: float-slower 11s ease-in-out infinite;
+}
+
+@keyframes shine {
+  from { left: -100%; }
+  to { left: 200%; }
+}
+.animate-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  animation: shine 3s infinite;
+}
+
+/* Scroll-reveal — only hide content when JavaScript is actually running
+   (the <html> gets a "js" class before paint). Without JS, content stays
+   visible, so the page can never render blank. */
+.reveal {
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animated gradient text for light mode */
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+/* Removed text-gradient */
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0% { transform: translateX(-150%); }
+  100% { transform: translateX(150%); }
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 80%
+  );
+  transform: translateX(-150%);
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Super smooth blob morph for light backgrounds */
+@keyframes blob {
+  0%, 100% { border-radius: 42% 58% 63% 37% / 42% 45% 55% 58%; transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { border-radius: 58% 42% 38% 62% / 58% 42% 58% 42%; transform: translate(30px, -20px) scale(1.1) rotate(5deg); }
+  66% { border-radius: 38% 62% 58% 42% / 45% 58% 42% 55%; transform: translate(-20px, 20px) scale(0.95) rotate(-5deg); }
+}
+.animate-blob {
+  animation: blob 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, border-radius;
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+/* Underline grow on links */
+.link-underline {
+  background-image: linear-gradient(var(--color-brand-600), var(--color-brand-600));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover {
+  background-size: 100% 2px;
+}
+
+/* Decorative grid background for light mode */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Mask utility to gently fade out decorative elements */
+.mask-radial-faded {
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 20%, black 70%);
+  mask-image: radial-gradient(ellipse at center, transparent 20%, black 70%);
+}
+.mask-radial-faded-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+/* Light mode Glassmorphism utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.06);
+}
+
+/* Glowing border for light mode */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--color-brand-400), var(--color-accent-400));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Focus visibility for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 4px;
+}
+
+/* ═══════ Aurora Hero Styles ═══════ */
+
+/* Pulsing ring around orb */
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.08); opacity: 0.25; }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 4s ease-in-out infinite;
+}
+
+/* Slow rotate for orb glow */
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-slow-spin {
+  animation: slow-spin 25s linear infinite;
+}
+
+/* Gradient text for dark sections */
+.text-glow {
+  background-image: linear-gradient(135deg, var(--color-accent-400), var(--color-brand-400), var(--color-accent-500));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Horizontal scroll for logos */
+@keyframes scroll-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-scroll-x {
+  animation: scroll-x 20s linear infinite;
+}
+
+/* Subtle grain texture overlay */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
